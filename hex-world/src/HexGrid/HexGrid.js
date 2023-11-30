@@ -188,8 +188,22 @@ const HexGrid = () => {
   }, []);
 
   const saveHexProperties = useCallback((hexProperties) => {
-    dispatch({ type: 'UPDATE_HEX_PROPERTY', payload: hexProperties });
+    const updatedColor = getUpdatedColor(hexProperties.tileType);
+    const updatedHexProperties = { ...hexProperties, color: updatedColor };
+
+    dispatch({ type: 'UPDATE_HEX_PROPERTY', payload: updatedHexProperties });
   }, []);
+
+  const getUpdatedColor = (tileType) => {
+    switch (tileType) {
+        case 'plains': return '#D8B500';
+        case 'desert': return '#C67D00';
+        case 'tundra': return '#0099cc';
+        case 'grassland': return '#263624';
+        case 'ocean': return '#203f8b';
+        default: return '';
+    }
+};
 
   const renderHexGrid = useMemo(() => {
     const rows = [];
@@ -204,13 +218,13 @@ const HexGrid = () => {
             onClick={() => clickHex(rowIndex * gridWidth + hexIndex)}
             style={{ backgroundColor: hex.color }}>
             <div className="hex-content">
-              {Object.entries(hex).map(([property, value]) =>
-                property === 'color' ? null : (
-                  <div key={property}>
-                    {property}: {value}
-                  </div>
-                )
-              )}
+            {Object.entries(hex).map(([property, value]) => {
+                return property === 'color' ? null : (
+                    <div key={property}>
+                    {property}: {value.toString()}
+                    </div>
+                );
+            })}
             </div>
           </div>
         );

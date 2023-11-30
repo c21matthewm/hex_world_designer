@@ -10,14 +10,14 @@ body {
     overflow-x: auto;
     overflow-y: auto;
     max-height: 90vh;
-    min-width: calc((96px + 2px) * 40 - 2p + 48px);
+    min-width: calc((128px + 2px) * 40 - 2p + 64px);
   }
 
 .hex {
-    width: 96px;
-    height: 96px;
+    width: 128px;
+    height: 128px;
     /* margin: 2px; */
-    margin: 2px 2px -22px 2px;
+    margin: 2px 2px -30px 2px;
     background: rgb(150, 100, 1);
     border: solid 1px #000000;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -31,13 +31,13 @@ body {
   }
 
   .hex-row:nth-of-type(odd) {
-    margin-left: calc((96px / 2) + 2px)
+    margin-left: calc((128px / 2) + 2px)
     }
   
   .hex-grid::after {
     content: "";
     width: 100%;
-    height: 96px;
+    height: 128px;
     display: block;
   }
   
@@ -48,7 +48,7 @@ body {
   .hex-content {
     position: absolute;
     color: white;
-    font-size: 8px;
+    font-size: 10px;
     width: 100%;
     height: 100%;
     text-align: center;

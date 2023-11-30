@@ -120,17 +120,27 @@ export const PropertyPopup = ({ hex, onSave, onCancel }) => {
         'river': riverOptions
     }), []);
 
-    const handleChange = (property, newValue) => {
-        const value = property === 'river'
-          ? newValue.map((option) => option.value)
-          : newValue.value || newValue;
-      
-        setLocalHex((prev) => ({
-          ...prev,
-          [property]: value,
-        }));
+    const handleChange = (property, event) => {
+        if (Array.isArray(event)) {
+          const value = event.map((option) => option.value);
+          setLocalHex((prev) => ({
+            ...prev,
+            [property]: value,
+          }));
+        } else if (event && event.hasOwnProperty('value')) {
+          const value = event.value || '';
+          setLocalHex((prev) => ({
+            ...prev,
+            [property]: value,
+          }));
+        } else {
+          const value = event.target.value;
+          setLocalHex((prev) => ({
+            ...prev,
+            [property]: value,
+          }));
+        }
       };
-      
 
     const inputField = (property, value) => {
         if (property in optionsMap) {
@@ -150,7 +160,7 @@ export const PropertyPopup = ({ hex, onSave, onCancel }) => {
                     type="text"
                     value={value}
                     placeholder={`Enter ${property}`}
-                    onChange={(e) => handleChange(property, e.target.value)}
+                    onChange={(e) => handleChange(property, e)}
                 />
             );
         }
